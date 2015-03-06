@@ -6,19 +6,21 @@ Given height = [2,1,5,6,2,3],
 return 10.
 */
 
-int largestRectangleArea(vector<int> &height) 
-{ 
-	stack<int> s;
+class Solution {
+public:
+    int largestRectangleArea(vector<int> &height) {
+        stack<int> s;
 	int maxArea = 0;
 	if(height.empty())
 		return 0;
 	if (height.size() == 1)
 		return height[0];
 
+    int i = 0;
 	while( i < height.size())
 	{
 		if(s.empty() || height[i] >= height[s.top()])
-			s.push_back(i++);
+			s.push(i++);
 		else
 		{
 			int start = s.top();
@@ -35,4 +37,5 @@ int largestRectangleArea(vector<int> &height)
 		maxArea = max(maxArea, height[start] * width);
 	}
 	return maxArea;
-}
+    }
+};
