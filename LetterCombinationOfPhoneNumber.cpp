@@ -9,34 +9,34 @@ class Solution {
     vector<string> dict = 
         { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 public:
-    vector<string> letterCombinations(string digits)
+ ic:
+    vector<string> letterCombinationsIter(string digits)
     {
-        vector<string> ret;
-        
-        ret.push_back("");
-        
-        for(int i = 0; i < digits.length(); i++)
-        {
+       vector<string> ret;
+       if(digits.empty())
+            return ret;
             
-            string mapped = dict[digits[i] - '0' - 2];
-           
-                int len = ret.size();
-                for(int j = 0; j < len; j++)
-                {
-                    string prefix = ret[0];
-                    ret.erase(ret.begin());
-                    for(int k = 0; k < mapped.length(); k++)
-                    {   
-                        string str = prefix + mapped[k];
-                        ret.push_back(str);
-                    }
-                }
-            
-        }
-        return ret;
+       ret.push_back("");
+       for(int i = 0; i < digits.length(); i++)
+       {
+           string mapped = dict[digits[i] - '2'];
+           int len = ret.size();
+           for(int i = 0; i < len; i++)
+           {
+               string prefix = ret[i];
+               for(int j = 0; j < mapped.length(); j++)
+               {
+                   string t = prefix;
+                   t.append(1, mapped[j]);
+                   ret.push_back(t);
+               }
+           }
+           ret.erase(ret.begin(), ret.begin() + len);
+       }
+       return ret;
     }
-    
-    vector<string> letterCombinationsRecursive(string digits) {
+  
+   vector<string> letterCombinationsRecursive(string digits) {
         vector<string> ret;
         if(digits.length() == 0)
         {
@@ -61,4 +61,11 @@ public:
         return ret;
  
     }
+    vector<string> letterCombinations(string digits)
+    {
+       // return letterCombinationsIter(digits);
+       return letterCombinationRecursive(digits);
+    }
+    
+   
 }
