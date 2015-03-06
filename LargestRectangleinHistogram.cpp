@@ -16,7 +16,7 @@ public:
 	if (height.size() == 1)
 		return height[0];
 
-    int i = 0;
+    	int i = 0;
 	while( i < height.size())
 	{
 		if(s.empty() || height[i] >= height[s.top()])
