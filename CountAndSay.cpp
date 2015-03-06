@@ -1,34 +1,40 @@
-class Solution 
-{
+class Solution {
 public:
-	string countAndSay(int n) 
-	{ 
-		string ret = "";
-		if(n <=0 )
-			return ret;
-		if(n == 1)
-			return "1";
-		string lastResult = "1";
-		for(int i = 1; i < n; i++)
-		{
-			int cnt = 1;
-			string result;
-				for(int j = 1; j < lastResult.size(); j++)
-				{
-					if(lastResult[j] == lastResult[j - 1])
-						cnt ++;
-					else
-					{
-						result.push_back(cnt + '0');
-						result.push_back(lastResult[j - 1]);
-						cnt = 1;
-					}	
-				}
-			result.push_back(cnt + '0');
-			result.push_back(lastResult[lastResult.size() - 1]);
-			lastResult = result;
-		}
-		return lastResult;
-
+    string countAndSay(int n) {
+        string str;
+        if(n < 1)
+            return str;
+            
+        for(int i = 0; i < n; i++)
+        {
+            if(i == 0)
+            {
+                str = "1";
+                continue;
+            }
+            
+            int count = 0;
+            string nextstr;
+            int pos = 0;
+            while(pos < str.length())
+            {
+                char a = str[pos];
+                if(pos > 0 && a != str[pos - 1])
+                {   
+                    nextstr.append(1, '0' + count);
+                    nextstr.append(1, str[pos - 1]);
+                    count = 1;
+                }
+                else
+                    count++;
+                pos++;
+            }
+            nextstr.append(1, '0' + count);
+            nextstr.append(1, str[pos - 1]);
+            str = nextstr;
+        }
+        
+        return str;
     }
+    
 };
