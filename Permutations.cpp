@@ -6,6 +6,23 @@ For example,
 [1,2,3], [1,3,2], [2,1,3], [2,3,1], [3,1,2], and [3,2,1].
 */
 class Solution {
+    void permuteAux(vector<int>& num, int i, vector<vector<int> > &ret)
+    {
+        if(i == num.size())
+        {
+            ret.push_back(num);
+            return;
+        }
+        
+        for(int j = i; j < num.size(); j++)
+        {
+            if(j > i)
+                swap(num[i], num[j]);
+            permuteAux(num, i + 1, ret);
+            if(j > i)
+                swap(num[i], num[j]);
+        }
+    }
 public:
     vector<vector<int> > permute(vector<int> &num) {
          vector<vector<int> > ret;
@@ -36,5 +53,11 @@ public:
             }
          }
          return ret;
+         /*
+        vector<vector<int> > ret;
+        permuteAux(num, 0, ret);
+        return ret;
+         */
+         
     }
 };
