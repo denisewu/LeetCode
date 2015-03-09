@@ -13,7 +13,7 @@ A solution set is:
 [2, 2, 3] 
 */
 class Solution {
-   void combinationSumAux(vector<int>& candidates, int start, vector<int> currv, int left, vector<vector<int> >& ret)
+   void combinationSumAux(vector<int>& candidates, int start, vector<int>& currv, int left, vector<vector<int> >& ret)
    {
        if(left == 0 && !currv.empty())
        {
@@ -24,24 +24,14 @@ class Solution {
        {
             for(int i = start; i < candidates.size(); i++)
             {
-                int maxc = left / candidates[i];
-                vector<int> t = currv;
-                for(int j = 0; j < maxc; j++)
-                {
-                    t.push_back(candidates[i]);
-                    int newLeft = left - (j + 1) * candidates[i];
-                    if(newLeft < candidates[i])
-                    {
-                        if(newLeft == 0)
-                            ret.push_back(t);
-                        break;
-                    }
-                    combinationSumAux(candidates, i + 1, t, newLeft, ret);
-                }
+                currv.push_back(candidates[i]);
+                int newLeft = left - candidates[i];
+                if(newLeft >= 0)
+                    combinationSumAux(candidates, i, currv, newLeft, ret);
+                currv.pop_back();
             }
        }
    }
-
     
 public:
     vector<vector<int> > combinationSum(vector<int> &candidates, int target) {
