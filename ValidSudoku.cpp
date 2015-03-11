@@ -8,8 +8,10 @@ A valid Sudoku board (partially filled) is not necessarily solvable. Only the fi
 class Solution {
 public:
     bool isValidSudoku(vector<vector<char> > &board) {
-        bool col[9][9] = {false}, row[9][9] = {false}, box[9][9] = {false};
-        
+        bool col[9][9], row[9][9], box[9][9];
+        memset(col, 0, 81 * sizeof(bool));
+        memset(row, 0, 81 * sizeof(bool));
+        memset(box, 0, 81 * sizeof(bool));
         for(int i = 0; i < board.size(); i++)
             for(int j = 0; j < board[i].size(); j++)
             {
