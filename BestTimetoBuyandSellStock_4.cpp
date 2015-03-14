@@ -25,16 +25,15 @@ public:
        if(k >= len / 2)
             return quickSolve(prices);
         
-        vector<vector<int> > dp(k + 1, vector<int>(len, 0));
-        for(int i = 1; i < k + 1; i++){
-            int tempmax = 0 - prices[0];
-            for(int j = 1; j < len; j++)
-            {
-                dp[i][j] = max(dp[i][j - 1], tempmax + prices[j]);
-                tempmax = max(tempmax, dp[i - 1][j - 1] - prices[j]);
+        vector<int> balance(k + 1, INT_MIN), profit(k + 1);
+
+        for(int i = 0; i < len; ++i) {
+            for(int j = 1; j <= k; ++j) {
+                balance[j] = max(profit[j - 1] - prices[i], balance[j]); // whether buy at prices[i]
+                profit[j] = max(balance[j] + prices[i], profit[j]); // whether sell at prices[i]
             }
-            
         }
-        return dp[k][len - 1];
+
+        return profit[k];
     }
 };
