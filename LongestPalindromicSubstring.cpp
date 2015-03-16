@@ -4,8 +4,41 @@ You may assume that the maximum length of S is 1000,
 and there exists one unique longest palindromic substring.
 */
 class Solution {
+    int expandAroundCenter(string& s, int c1, int c2)
+    {
+        int len = s.length();
+        int l = c1, r = c2;
+        while(l >= 0 && r < len && s[l] == s[r])
+        {
+            l--;
+            r++;
+        }
+        return c1 == c2? c1 - l - 1: c1 - l;
+    }
 public:
-    string longestPalindrome(string s) {
+    string longestPalindromeCenter(string s){
+        int len = s.length();
+        int retindex = 0;
+        int longest = 1;
+        for(int i = 0; i < len - 1; i++)
+        {
+            int radius = expandAroundCenter(s, i, i);
+            if(radius * 2 + 1 > longest)
+            {
+                retindex = i - radius;
+                longest = radius * 2 + 1;
+            }
+            radius = expandAroundCenter(s, i, i + 1);
+            if(radius * 2 > longest)
+            {
+                retindex = i - radius + 1;
+                longest = radius * 2;
+            }
+        }
+        return s.substr(retindex, longest);
+    }
+    
+    string longestPalindromeDP(string s) {
         if(s.length() < 2)
             return s;
         int len = s.length();
